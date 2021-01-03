@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] -@Localizer["HospitalAutomation"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">@Localizer["Hospital Automation"]</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                           @Localizer["Home"]
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Create">@Localizer["Get Appointment"]</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("User"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Localizer["My Treatments"] </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="Index">@Localizer["Appointments"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Examination" asp-action="Index">@Localizer["Examinations"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="ExaminationAndTest" asp-action="Index">@Localizer["My Tests"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PrescriptionAndMedicine" asp-action="Index">@Localizer["My Medicines"]</a>
+                                </div>
+                            </li>
+                        }
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Country" asp-action="Index">@Localizer["Countries"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="City" asp-action="Index">@Localizer["Cities"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="District" asp-action="Index">@Localizer["Districts"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Hospital" asp-action="Index">@Localizer["Hospitals"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Clinic" asp-action="Index">@Localizer["Clinics"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="HospitalAndClinic" asp-action="Index">@Localizer["Clinics in Hospital"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="Index">@Localizer["Patients"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="Index">@Localizer["Appointments"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Prescription" asp-action="Index">@Localizer["Prescriptions"]</a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Index">@Localizer["Doctors"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Employee" asp-action="Index">@Localizer["Employees"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Test" asp-action="Index">@Localizer["Tests"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Medicine" asp-action="Index">@Localizer["Medicines"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">@Localizer["Roles"]</a>
+
+                                </div>
+                            </li>
+                        }
+                    }
+
+                </ul>
+                <div>
+                  <partial name="_LoginPartial"/>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - HospitalAutomation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            
+                <partial name="_Culture" />
+            
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
