@@ -49,8 +49,9 @@ namespace HospitalAutomation.Controllers
 
             var appointment = await _context.Appointment
                 .Include(a => a.Doctor)
-                .Include(a => a.HospitalAndClinic)
                 .Include(a => a.Patient)
+                .Include(a => a.HospitalAndClinic)
+                .ThenInclude(x=>x.Clinic)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (appointment == null)
             {
@@ -61,7 +62,7 @@ namespace HospitalAutomation.Controllers
         }
 
         // GET: Appointment/Create
-        [Authorize(Roles = "Admin")]
+        
         public IActionResult Create()
         {
             ViewData["DoctorId"] = new SelectList(_context.Doctor, "Id", "FullName");
